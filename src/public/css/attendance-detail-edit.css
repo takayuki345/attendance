@@ -1,0 +1,90 @@
+.attendance-detail-edit__wrapper {
+    margin: 100px auto 0;
+    max-width: 1000px;
+}
+
+.attendance-detail-edit__title {
+    padding-left: 20px;
+    line-height: 1.5;
+    text-align: left;
+    font-size: 28px;
+    margin-bottom: 50px;
+    border-left: 8px solid black;
+}
+
+.form__table {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 10px;
+    border-collapse: collapse;
+}
+
+.form__table th {
+    padding: 30px 0 30px 50px;
+    text-align: left;
+    width: 35%;
+}
+
+.form__table input {
+    text-align: center;
+    width: 120px;
+    outline: none;
+    border: 1px solid rgba(225, 225, 225, 1);
+}
+
+.form__table textarea {
+    width: 320px;
+    outline: none;
+    border: 1px solid rgba(225, 225, 225, 1);
+}
+
+.table__td-name {
+    padding-left: 30px;
+}
+
+.table__td-year {
+    width: 120px;
+    text-align: center;
+}
+
+.table__td-date {
+    text-align: center;
+}
+
+.table__td-to {
+    text-align: center;
+}
+
+.table__td-note textarea {
+    resize: none;
+}
+
+.form__table tr:nth-of-type(2) td:nth-of-type(2) {
+    width: 80px;
+}
+
+.form__table tr:nth-of-type(2) td:nth-of-type(3) {
+    width: 120px;
+    margin-right: auto;
+}
+
+.form__table tr:not(:last-of-type) th,
+.form__table tr:not(:last-of-type) td {
+    border-bottom: 3px solid rgb(240, 239, 242);
+}
+
+.form__button {
+    text-align: right;
+    margin-top: 50px;
+}
+
+.form__button button {
+    padding: 8px;
+    width: 120px;
+    border-radius: 8px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+}

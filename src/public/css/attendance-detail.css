@@ -1,0 +1,67 @@
+.attendance-detail__wrapper {
+    margin: 100px auto 0;
+    max-width: 1000px;
+}
+
+.attendance-detail__title {
+    padding-left: 20px;
+    line-height: 1.5;
+    text-align: left;
+    font-size: 28px;
+    margin-bottom: 50px;
+    border-left: 8px solid black;
+}
+
+.attendance-detail__table {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 10px;
+    border-collapse: collapse;
+}
+
+.attendance-detail__table th {
+    padding: 30px 0 30px 50px;
+    text-align: left;
+    width: 40%;
+}
+
+.attendance-detail__table tr:nth-of-type(2) td:nth-of-type(1) {
+    width: 120px;
+}
+
+.attendance-detail__table tr:nth-of-type(2) td:nth-of-type(2) {
+    width: 80px;
+}
+
+.attendance-detail__table tr:not(:last-of-type) th,
+.attendance-detail__table tr:not(:last-of-type) td {
+    border-bottom: 3px solid rgb(240, 239, 242);
+}
+
+.attendance-detail__form {
+    margin-top: 50px;
+    text-align: right;
+}
+
+.attendance-detail__form button {
+    padding: 8px;
+    width: 120px;
+    border-radius: 8px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+}
+
+.attendance-detail__form button:disabled {
+    opacity: 0.5;
+}
+
+.message {
+    color: rgba(255, 0, 0, 0.5);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+}

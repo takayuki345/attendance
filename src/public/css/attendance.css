@@ -1,0 +1,70 @@
+.attendance__wrapper {
+    margin: 100px auto 0;
+    /* max-width: 700px; */
+    text-align: center;
+}
+
+.attendance-status {
+    margin-bottom: 30px;;
+}
+
+.attendance-status span {
+    color: rgba(105, 105, 105, 1);
+    display: inline-block;
+    background-color: rgba(200, 200, 200, 1);
+    padding: 7px 15px;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    border-radius: 18px;
+    font-weight: bold;
+}
+
+.attendance-date {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.attendance-time {
+    font-size: 62px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.form-group .button-work,
+.form-group .button-break {
+    /* text-align: right; */
+    display: inline-block;
+    /* padding: 0; */
+    font-size: 28px;
+    font-weight: bold;
+    width: 180px;
+    padding: 10px;
+    border: none;
+    /* width: 100%; */
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+}
+
+.form-group .button-work {
+    background-color: black;
+    color: white;
+}
+
+.form-group .button-break {
+    background-color: white;
+    color: black;
+}
+
+.message {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 62px;
+}

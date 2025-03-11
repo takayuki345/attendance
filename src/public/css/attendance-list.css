@@ -1,0 +1,132 @@
+.attendance-list__wrapper {
+    margin: 80px auto 0;
+    max-width: 1000px;
+}
+
+.attendance-list__title {
+    padding-left: 20px;
+    line-height: 1.5;
+    text-align: left;
+    font-size: 28px;
+    margin-bottom: 50px;
+    border-left: 8px solid black;
+}
+
+.attendance-list__working-month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px 40px;
+    margin-bottom: 50px;
+}
+
+.attendance-list__working-month a {
+    font-weight: bold;
+    text-decoration: none;
+    color: rgba(115, 115, 115, 1);
+}
+
+.working-month-last span::before{
+    content: url("../img/left_arrow.svg");
+    margin-right: 10px;
+}
+
+.working-month-current {
+}
+
+.working-month-current span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.working-month-current span::before {
+    content: url("../img/calendar.svg");
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.working-month-next span::after {
+    content: url("../img/right_arrow.svg");
+    margin-left: 10px;
+}
+
+.attendance-list__table {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 10px;
+    border-collapse: collapse;
+    color: rgba(115, 115, 115, 1);
+}
+
+.attendance-list__table th:nth-of-type(1) {
+    width: auto;
+    padding-right: 55px;
+}
+
+/* .attendance-list__table th:nth-of-type(1), */
+.attendance-list__table td:nth-of-type(1) {
+    width: auto;
+}
+
+
+.attendance-list__table th:nth-of-type(2),
+.attendance-list__table td:nth-of-type(2) {
+    width: 140px;
+}
+
+.attendance-list__table th:nth-of-type(3),
+.attendance-list__table td:nth-of-type(3) {
+    width: 140px;
+}
+
+.attendance-list__table th:nth-of-type(4),
+.attendance-list__table td:nth-of-type(4) {
+    width: 140px;
+}
+
+.attendance-list__table th:nth-of-type(5),
+.attendance-list__table td:nth-of-type(5) {
+    width: 140px;
+}
+
+.attendance-list__table th:nth-of-type(6),
+.attendance-list__table td:nth-of-type(6) {
+    width: 180px;
+}
+
+.attendance-list__table th,
+.attendance-list__table td {
+    text-align: center;
+    height: 50px;
+}
+
+.attendance-list__table tr th,
+.attendance-list__table tr:not(:last-of-type) td {
+    border-bottom: 3px solid rgb(240, 239, 242);
+}
+
+.attendance-list__table a {
+    text-decoration: none;
+    color: black;
+}
+
+.attendance-list__csv {
+    margin-top: 50px;
+    text-align: right;
+}
+
+.attendance-list__csv button {
+    padding: 10px;
+    /* font-weight: bold; */
+    color: white;
+    font-size: 24px;
+    background-color: black;
+    width: 200px;
+    border-radius: 8px;
+    cursor: pointer;
+}
