@@ -59,3 +59,9 @@
     color: rgba(0, 115, 204, 1);
     text-decoration: none;
 }
+
+.error {
+    margin-top: 2px;
+    color: red;
+    font-weight: bold;
+}

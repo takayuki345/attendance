@@ -13,25 +13,31 @@
         <div class="header__logo"><img src="{{ asset('img/coachtech.svg') }}" alt=""></div>
         <nav class="header__nav">
             <ul>
-                <li><a href="">勤怠一覧</a></li>
-                <li><a href="">スタッフ一覧</a></li>
-                <li><a href="">申請一覧</a></li>
-                <!-- <li><a href="">ログアウト</a></li> -->
+                @if (Auth::guard('admin')->check())
+                    <li><a href="/admin/attendance/list">勤怠一覧</a></li>
+                    <li><a href="/admin/staff/list">スタッフ一覧</a></li>
+                    <li><a href="/stamp_correction_request/list">申請一覧</a></li>
+                @endif
+                @if (Auth::guard('web')->check())
+                    <li><a href="/attendance">勤怠</a></li>
+                    <li><a href="/attendance/list">勤怠一覧</a></li>
+                    <li><a href="/stamp_correction_request/list">申請</a></li>
+                    <!-- <li><a href="">今月の出勤一覧</a></li>
+                    <li><a href="">申請一覧</a></li> -->
+                @endif
                 <li>
-                    <form action="">
-                        <button type="submit">ログアウト</button>
-                    </form>
+                    @if (Auth::guard('admin')->check())
+                        <form action="/admin/logout" method="post">
+                            @csrf
+                            <button type="submit">ログアウト</button>
+                        </form>
+                    @elseif (Auth::guard('web')->check())
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button type="submit">ログアウト</button>
+                        </form>
+                    @endif
                 </li>
-                <!-- <li><a href="">勤怠</a></li>
-                <li><a href="">勤怠一覧</a></li>
-                <li><a href="">申請</a></li>
-                <li><a href="">今月の出勤一覧</a></li>
-                <li><a href="">申請一覧</a></li>
-                <li>
-                    <form action="">
-                        <button type="submit">ログアウト</button>
-                    </form>
-                </li> -->
             </ul>
         </nav>
     </header>

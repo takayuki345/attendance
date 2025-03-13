@@ -42,10 +42,14 @@
                 <td colspan="3">電車遅延のため</td>
             </tr>
         </table>
-        <form class="attendance-detail__form" action="" method="">
-            <button type="submit">承認</button>
-        </form>
-        <div class="message">*承認待ちのため修正はできません。</div>
+        @if (Auth::guard('admin')->check())
+            <form class="attendance-detail__form" action="" method="">
+                <button type="submit">承認</button>
+            </form>
+        @endif
+        @if (Auth::guard('web')->check())
+            <div class="message">*承認待ちのため修正はできません。</div>
+        @endif
     </div>
 </div>
 @endsection

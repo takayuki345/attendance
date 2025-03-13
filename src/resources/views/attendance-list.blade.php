@@ -6,7 +6,11 @@
 
 @section('content')
 <div class="attendance-list__wrapper">
-    <h2 class="attendance-list__title">西伶奈さんの勤怠</h2>
+    @if (Auth::guard('admin')->check())
+        <h2 class="attendance-list__title">西伶奈さんの勤怠</h2>
+    @elseif (Auth::guard('web')->check())
+        <h2 class="attendance-list__title">勤怠一覧</h2>
+    @endif
     <div class="attendance-list__working-month">
         <div class="working-month-last"><a href=""><span>前月</span></a></div>
         <div class="working-month-current"><span>2023/06</span></div>
@@ -28,7 +32,7 @@
                 <td>18:00</td>
                 <td>1:00</td>
                 <td>8:00</td>
-                <td><a href="">詳細</a></td>
+                <td><a href="/attendance/1">詳細</a></td>
             </tr>
             <tr>
                 <td>06/02(金)</td>
@@ -36,7 +40,7 @@
                 <td>18:00</td>
                 <td>1:00</td>
                 <td>8:00</td>
-                <td><a href="">詳細</a></td>
+                <td><a href="/attendance/1">詳細</a></td>
             </tr>
             <tr>
                 <td>06/03(土)</td>
@@ -44,12 +48,14 @@
                 <td>18:00</td>
                 <td>1:00</td>
                 <td>8:00</td>
-                <td><a href="">詳細</a></td>
+                <td><a href="/attendance/2">詳細</a></td>
             </tr>
         </table>
     </div>
-    <div class="attendance-list__csv">
-        <button>CSV出力</button>
-    </div>
+    @if (Auth::guard('admin')->check())
+        <div class="attendance-list__csv">
+            <button>CSV出力</button>
+        </div>
+    @endif
 </div>
 @endsection
