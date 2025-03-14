@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class AdminsTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +16,11 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         $content = [
-            'name' => 'admin1',
-            'email' => 'admin1@admin',
-            'password' => Hash::make('admin1admin1'),
+            'id' => 1,
+            'name' => 'test1',
+            'email' => 'test1@test',
+            'password' => Hash::make('test1test1'),
         ];
-        Admin::create($content);
+        User::create($content);
     }
 }
