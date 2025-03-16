@@ -18,8 +18,8 @@ class CreateAttendancesTable extends Migration
             $table->date('date');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->dateTime('start');
-            $table->dateTime('end');
-            $table->string('note');
+            $table->dateTime('end')->nullable();
+            $table->string('note')->nullable();
             $table->foreignId('attendance_status_id')->constrained('attendance_statuses', 'id');
             $table->foreignId('request_status_id')->constrained('request_statuses', 'id');
             $table->timestamps();

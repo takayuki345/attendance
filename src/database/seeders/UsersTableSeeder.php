@@ -22,5 +22,12 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('test1test1'),
         ];
         User::create($content);
+        $content = [
+            'id' => 2,
+            'name' => 'test2',
+            'email' => 'test2@test',
+            'password' => Hash::make('test2test2'),
+        ];
+        User::create($content);
     }
 }

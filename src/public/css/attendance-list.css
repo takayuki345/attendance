@@ -118,6 +118,7 @@
 .attendance-list__csv {
     margin-top: 50px;
     text-align: right;
+    margin-bottom: 80px;
 }
 
 .attendance-list__csv button {

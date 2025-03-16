@@ -5,47 +5,62 @@
 @endsection
 
 @section('content')
+@php
+    use Carbon\Carbon;
+@endphp
 <div class="attendance-detail-edit__wrapper">
     <h2 class="attendance-detail-edit__title">勤怠詳細</h2>
     <div class="attendance-detail-edit__container">
-        <form class="attendance-detail-edit__form" action="" method="">
+        <form class="attendance-detail-edit__form" action="/attendance/{{ $attendance->id }}" method="post">
+            @csrf
             <table class="form__table">
                 <tr>
                     <th>名前</th>
-                    <td class="table__td-name" colspan="3">西　伶奈</td>
+                    <td class="table__td-name" colspan="3">{{ $attendance->user->name }}</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th>日付</th>
-                    <td class="table__td-year">2023年</td>
+                    <td class="table__td-year">{{ substr($attendance->date, 0, 4) }}年</td>
                     <td></td>
-                    <td class="table__td-date">6月1日</td>
+                    <td class="table__td-date">{{ ltrim(substr($attendance->date, 5, 2), "0") }}月{{ ltrim(substr($attendance->date, 8, 2), "0") }}日</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th>出勤・退勤</th>
-                    <td class="table__td-start"><input type="text" value="09:00"></td>
+                    <td class="table__td-start"><input type="text" name="start" value="{{ Carbon::parse($attendance->start)->format('H:i') }}"></td>
                     <td class="table__td-to">～</td>
-                    <td class="table__td-end"><input  type="text" value="18:00"></td>
+                    <td class="table__td-end"><input  type="text" name="end" value="{{ isset($attendance->end) ? Carbon::parse($attendance->end)->format('H:i') : '' }}"></td>
                     <td></td>
                 </tr>
+                @php
+                    $cnt = 0;
+                @endphp
+                @foreach ($attendance->attendance_breaks as $attendance_break)
+                    @php
+                        $cnt++;
+                    @endphp
+                    <tr>
+                        <th>休憩 {{ $cnt == 1 ? '' : $cnt }}</th>
+                        <td class="table__td-break-start"><input type="text" name="break_start[]" value="{{ Carbon::parse($attendance_break->break_start)->format('H:i') }}"></td>
+                        <td class="table__td-to">～</td>
+                        <td class="table__td-break-end"><input type="text" name="break_end[]" value="{{ isset($attendance_break->break_end) ? Carbon::parse($attendance_break->break_end)->format('H:i') : '' }}"></td>
+                        <td></td>
+                    </tr>
+                @endforeach
+                @php
+                    $cnt++;
+                @endphp
                 <tr>
-                    <th>休憩</th>
-                    <td class="table__td-break-start"><input type="text" value="12:00"></td>
+                    <th>休憩 {{ $cnt == 1 ? '' : $cnt }}</th>
+                    <td class="table__td-break-start"><input type="text" name="break_start_add"></td>
                     <td class="table__td-to">～</td>
-                    <td class="table__td-break-end"><input type="text" value="13:00"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>休憩2</th>
-                    <td class="table__td-break-start"><input type="text"></td>
-                    <td class="table__td-to">～</td>
-                    <td class="table__td-break-end"><input type="text"></td>
+                    <td class="table__td-break-end"><input type="text" name="break_end_add"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <th>備考</th>
-                    <td class="table__td-note" colspan="3"><textarea name="" id="">電車遅延のため</textarea></td>
+                    <td class="table__td-note" colspan="3"><textarea name="note">{{ $attendance->note }}</textarea></td>
                     <td></td>
                 </tr>
             </table>

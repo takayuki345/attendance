@@ -21,7 +21,7 @@ class RequestStatusesTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => '承認前',
+                'name' => '承認待ち',
             ],
             [
                 'id' => 3,

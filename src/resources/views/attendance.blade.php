@@ -6,16 +6,22 @@
 
 @section('content')
 <div class="attendance__wrapper">
-        <div class="attendance-status"><span>勤務外</span></div>
-        <div class="attendance-date">2023年6月1日(木)</div>
-        <div class="attendance-time">08:00</div>
-        <form class="attendance__form" action="" method="">
+        <div class="attendance-status"><span>{{ $attendance_status }}</span></div>
+        <div class="attendance-date">{{ $date }}</div>
+        <div class="attendance-time">{{ $time }}</div>
+        <form class="attendance__form" action="/attendance" method="post">
             <div class="form-group">
-                <!-- <button class="button-work" type="submit">出勤</button> -->
-                <button class="button-work" type="submit">退勤</button>
-                <button class="button-break" type="submit">休憩入</button>
-                <!-- <button class="button-break" type="submit">休憩戻</button>
-                <div class="message">　お疲れ様でした。</div> -->
+                @csrf
+                @if ($attendance_status == '勤務外')
+                    <button class="button-work" type="submit" name="action" value="start">出勤</button>
+                @elseif ($attendance_status == '出勤中')
+                    <button class="button-work" type="submit" name="action" value="end">退勤</button>
+                    <button class="button-break" type="submit" name="action" value="break_start">休憩入</button>
+                @elseif ($attendance_status == '休憩中')
+                    <button class="button-break" type="submit" name="action" value="break_end">休憩戻</button>
+                @elseif ($attendance_status == '退勤済')
+                    <div class="message">お疲れ様でした。</div>
+                @endif
             </div>
         </form>
     </div>

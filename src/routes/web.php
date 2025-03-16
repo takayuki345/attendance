@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceRequestController;
 use App\Http\Controllers\Admin\AdminController as AdminLoginController;
 
 
@@ -22,15 +23,11 @@ Route::get('/', function() {
 
 Route::middleware('auth')->group(function() {
 
-    Route::get('/attendance', function() {
-        return view('attendance');
-    });
+    Route::get('/attendance', [AttendanceController::class, 'showStamp']);
 
-    Route::get('/attendance/list', function() {
-        return view('attendance-list');
-    });
+    Route::post('/attendance', [AttendanceController::class, 'execStamp']);
 
-    // Route::get('/attendance/{id}', [AttendanceController::class, 'index']);
+    Route::get('/attendance/list', [AttendanceController::class, 'showMonthAttendance']);
 
 });
 
@@ -48,10 +45,7 @@ Route::middleware(['admin'])->group(function() {
 });
 
 Route::middleware(['anyauth'])->group(function() {
-    Route::get('/attendance/{id}', function() {
-        return view('attendance-detail-edit');
-    });
-    Route::get('/stamp_correction_request/list', function() {
-        return view('stamp-request');
-    });
+    Route::get('/attendance/{id}', [AttendanceController::class, 'showDetail']);
+    Route::post('/attendance/{id}', [AttendanceController::class, 'updateDetail']);
+    Route::get('/stamp_correction_request/list', [AttendanceRequestController::class, 'index']);
 });

@@ -16,7 +16,6 @@ class AttendanceRequestBreaksTableSeeder extends Seeder
     public function run()
     {
         $content = [
-            'id' => 1,
             'attendance_request_id' => 1,
             'break_start' => Carbon::today()->subDay(2)->setTime(12, 31, 57),
             'break_end' => Carbon::today()->subDay(2)->setTime(13, 28, 5),

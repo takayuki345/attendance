@@ -14,15 +14,11 @@ class CreateAttendanceBreaksTable extends Migration
     public function up()
     {
         Schema::create('attendance_breaks', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
-            $table->unsignedBigInteger('attendance_id');
+            $table->id();
+            $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
             $table->dateTime('break_start');
-            $table->dateTime('break_end');
+            $table->dateTime('break_end')->nullable();
             $table->timestamps();
-
-            $table->primary(['id', 'attendance_id']);
-
-            $table->foreign('attendance_id')->references('id')->on('attendances')->onDelete('cascade');
         });
     }
 

@@ -12,9 +12,9 @@
         <h2 class="attendance-list__title">勤怠一覧</h2>
     @endif
     <div class="attendance-list__working-month">
-        <div class="working-month-last"><a href=""><span>前月</span></a></div>
-        <div class="working-month-current"><span>2023/06</span></div>
-        <div class="working-month-next"><a href=""><span>翌月</span></a></div>
+        <div class="working-month-last"><a href="/attendance/list?year={{ $targets['before_year'] }}&month={{ $targets['before_month'] }}"><span>前月</span></a></div>
+        <div class="working-month-current"><span>{{ $targets['year'] }}/{{ sprintf('%02d', $targets['month']) }}</span></div>
+        <div class="working-month-next"><a href="/attendance/list?year={{ $targets['after_year'] }}&month={{ $targets['after_month'] }}"><span>翌月</span></a></div>
     </div>
     <div class="attendance-list__container">
         <table class="attendance-list__table">
@@ -26,36 +26,22 @@
                 <th>合計</th>
                 <th>詳細</th>
             </tr>
+            @foreach ($time_records as $time_record)
             <tr>
-                <td>06/01(木)</td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="/attendance/1">詳細</a></td>
+                <td>{{ $time_record['date'] }}</td>
+                <td>{{ $time_record['start'] }}</td>
+                <td>{{ $time_record['end'] }}</td>
+                <td>{{ $time_record['break'] }}</td>
+                <td>{{ $time_record['total'] }}</td>
+                <td>@if($time_record['id'])<a href="/attendance/{{ $time_record['id'] }}">詳細</a>@endif</td>
             </tr>
-            <tr>
-                <td>06/02(金)</td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="/attendance/1">詳細</a></td>
-            </tr>
-            <tr>
-                <td>06/03(土)</td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="/attendance/2">詳細</a></td>
-            </tr>
+            @endforeach
         </table>
     </div>
-    @if (Auth::guard('admin')->check())
-        <div class="attendance-list__csv">
-            <button>CSV出力</button>
-        </div>
-    @endif
+    <div class="attendance-list__csv">
+        @if (Auth::guard('admin')->check())
+        <button>CSV出力</button>
+        @endif
+    </div>
 </div>
 @endsection
