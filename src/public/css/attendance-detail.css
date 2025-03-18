@@ -52,10 +52,12 @@
     font-size: 20px;
     background-color: black;
     color: white;
+    cursor: pointer;
 }
 
 .attendance-detail__form button:disabled {
     opacity: 0.5;
+    cursor: auto;
 }
 
 .message {

@@ -36,16 +36,16 @@
                 @php
                     $cnt = 0;
                 @endphp
-                @foreach ($attendance->attendance_breaks as $attendance_break)
+                @foreach ($attendance->attendance_breaks as $attendanceBreak)
                     @php
                         $cnt++;
                     @endphp
                     <tr>
                         <th>休憩 {{ $cnt == 1 ? '' : $cnt }}</th>
-                        <td class="table__td-break-start"><input type="text" name="break_start[]" value="{{ Carbon::parse($attendance_break->break_start)->format('H:i') }}"></td>
+                        <td class="table__td-break-start"><input type="text" name="break_start[]" value="{{ Carbon::parse($attendanceBreak->break_start)->format('H:i') }}"></td>
                         <td class="table__td-to">～</td>
-                        <td class="table__td-break-end"><input type="text" name="break_end[]" value="{{ isset($attendance_break->break_end) ? Carbon::parse($attendance_break->break_end)->format('H:i') : '' }}"></td>
-                        <td></td>
+                        <td class="table__td-break-end"><input type="text" name="break_end[]" value="{{ isset($attendanceBreak->break_end) ? Carbon::parse($attendanceBreak->break_end)->format('H:i') : '' }}"></td>
+                        <td><input type="hidden" name="id[]" value="{{ $attendanceBreak->id }}"></td>
                     </tr>
                 @endforeach
                 @php

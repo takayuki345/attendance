@@ -16,20 +16,22 @@
                 <th>月次勤怠</th>
                 <th></th>
             </tr>
-            <tr>
+            @foreach ($users as $user)
+                <tr>
+                    <td></td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td><a href="/admin/attendance/staff/{{ $user->id }}">詳細</a></td>
+                    <td></td>
+                </tr>
+            @endforeach
+            <!-- <tr>
                 <td></td>
                 <td>西　伶奈</td>
                 <td>reina.n@coachtech.com</td>
                 <td><a href="">詳細</a></td>
                 <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>西　伶奈</td>
-                <td>reina.n@coachtech.com</td>
-                <td><a href="">詳細</a></td>
-                <td></td>
-            </tr>
+            </tr> -->
         </table>
     </div>
 </div>

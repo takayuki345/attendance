@@ -6,11 +6,11 @@
 
 @section('content')
 <div class="attendance-staff-list__wrapper">
-    <h2 class="attendance-staff-list__title">2023年6月1日の勤怠</h2>
+    <h2 class="attendance-staff-list__title">{{ substr($dateSet['target'], 0, 4) }}年{{ ltrim(substr($dateSet['target'], 5, 2), '0') }}月{{ ltrim(substr($dateSet['target'], 8, 2), '0') }}日の勤怠</h2>
     <div class="attendance-staff-list__working-day">
-        <div class="working-day-yesterday"><a href=""><span>前日</span></a></div>
-        <div class="working-day-today"><span>2023/06/01</span></div>
-        <div class="working-day-tomorrow"><a href=""><span>翌日</span></a></div>
+        <div class="working-day-yesterday"><a href="/admin/attendance/list?date={{ $dateSet['before'] }}"><span>前日</span></a></div>
+        <div class="working-day-today"><span>{{ substr($dateSet['target'], 0, 4) }}/{{ substr($dateSet['target'], 5, 2) }}/{{ substr($dateSet['target'], 8, 2) }}</span></div>
+        <div class="working-day-tomorrow"><a href="/admin/attendance/list?date={{ $dateSet['after'] }}"><span>翌日</span></a></div>
     </div>
     <div class="attendance-staff-list__container">
         <table class="attendance-staff-list__table">
@@ -23,7 +23,18 @@
                 <th>合計</th>
                 <th>詳細</th>
             </tr>
-            <tr>
+            @foreach ($timeRecords as $timeRecord)
+                <tr>
+                    <td>{{ $timeRecord['userName'] }}</td>
+                    <td></td>
+                    <td>{{ $timeRecord['start'] }}</td>
+                    <td>{{ $timeRecord['end'] }}</td>
+                    <td>{{ $timeRecord['break'] }}</td>
+                    <td>{{ $timeRecord['total'] }}</td>
+                    <td>@if($timeRecord['id'] != '') <a href="/attendance/{{ $timeRecord['id'] }}">詳細</a> @endif</td>
+                </tr>
+            @endforeach
+            <!-- <tr>
                 <td>西　伶奈</td>
                 <td></td>
                 <td>09:00</td>
@@ -31,16 +42,7 @@
                 <td>1:00</td>
                 <td>8:00</td>
                 <td><a href="">詳細</a></td>
-            </tr>
-            <tr>
-                <td>西　伶奈</td>
-                <td></td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="">詳細</a></td>
-            </tr>
+            </tr> -->
         </table>
     </div>
 </div>

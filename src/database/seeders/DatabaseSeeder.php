@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(AttendanceStatusesTableSeeder::class);
         $this->call(RequestStatusesTableSeeder::class);
-        $this->call(AttendancesTableSeeder::class);
-        $this->call(AttendanceBreaksTableSeeder::class);
-        $this->call(AttendanceRequestsTableSeeder::class);
-        $this->call(AttendanceRequestBreaksTableSeeder::class);
+        // $this->call(AttendancesTableSeeder::class);
+        // $this->call(AttendanceBreaksTableSeeder::class);
+        // $this->call(AttendanceRequestsTableSeeder::class);
+        // $this->call(AttendanceRequestBreaksTableSeeder::class);
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceRequestController;
 use App\Http\Controllers\Admin\AdminController as AdminLoginController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -36,12 +37,16 @@ Route::post('/admin/login', [AdminLoginController::class, 'login']);
 Route::post('/admin/logout', [AdminLoginController::class, 'logout']);
 
 Route::middleware(['admin'])->group(function() {
-    Route::get('/admin/attendance/list', function() {
-        return view('attendance-staff-list');
-    });
-    Route::get('/admin/staff/list', function() {
-        return view('staff');
-    });
+
+    Route::get('/admin/attendance/list', [AttendanceController::class, 'showDayStaffAttendance']);
+
+    Route::get('/admin/staff/list', [UserController::class, 'index']);
+
+    Route::get('/admin/attendance/staff/{id}', [AttendanceController::class, 'showMonthAttendance']);
+
+    Route::get('/stamp_correction_request/approve/{id}', [AttendanceRequestController::class, 'showRequestDetail']);
+
+    Route::post('/stamp_correction_request/approve/{id}', [AttendanceRequestController::class, 'approveRequestDetail']);
 });
 
 Route::middleware(['anyauth'])->group(function() {
