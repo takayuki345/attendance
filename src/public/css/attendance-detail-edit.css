@@ -34,6 +34,10 @@
     border: 1px solid rgba(225, 225, 225, 1);
 }
 
+/* .form__table input::-webkit-calendar-picker-indicator {
+    display: none;
+} */
+
 .form__table textarea {
     width: 320px;
     outline: none;
@@ -88,4 +92,19 @@
     background-color: black;
     color: white;
     cursor: pointer;
+}
+
+tr:has(+ .error_tr) th,
+tr:has(+ .error_tr) td {
+    border-bottom: none !important;
+    padding-bottom: 5px;
+}
+
+tr:has(+ .error_tr) textarea {
+    margin-top: 10px;
+}
+
+
+.error {
+    color: red;
 }

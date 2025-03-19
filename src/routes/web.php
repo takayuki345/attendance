@@ -54,3 +54,9 @@ Route::middleware(['anyauth'])->group(function() {
     Route::post('/attendance/{id}', [AttendanceController::class, 'updateDetail']);
     Route::get('/stamp_correction_request/list', [AttendanceRequestController::class, 'index']);
 });
+
+Route::middleware('auth')->group(function() {
+
+    Route::get('/stamp_correction_request/{id}', [AttendanceRequestController::class, 'showRequestDetail']);
+
+});

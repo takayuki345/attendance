@@ -35,7 +35,8 @@
                         @if (Auth::guard('admin')->check())
                             <a href="/stamp_correction_request/approve/{{ $attendanceRequest->id }}">詳細</a>
                         @else
-                            <a href="/attendance/{{ $attendanceRequest->attendance->id }}">詳細</a>
+                            <!-- <a href="/attendance/{{-- $attendanceRequest->attendance->id --}}">詳細</a> -->
+                            <a href="/stamp_correction_request/{{ $attendanceRequest->id }}">詳細</a>
                         @endif
                     </td>
                 </tr>

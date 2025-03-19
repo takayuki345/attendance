@@ -60,7 +60,9 @@
             @endif
         @endif
         @if (Auth::guard('web')->check())
+            @if ($attendanceRequest->request_status_id == 2)
             <div class="message">*承認待ちのため修正はできません。</div>
+            @endif
         @endif
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AttendanceRequest2;
 use App\Models\Attendance;
 use App\Models\AttendanceBreak;
 use App\Models\AttendanceRequest;
@@ -48,47 +49,39 @@ class AttendanceController extends Controller
             $attendance = new Attendance();
             $attendance->user_id = $userId;
             $attendance->date = $now->toDateString();
-
             $attendance->start = $now->format('Y-m-d H:i:00');
             $attendance->end = null;
             $attendance->note = null;
             $attendance->attendance_status_id = 2;
             $attendance->request_status_id = 1;
             $attendance->save();
-            
+
         } elseif ($action == 'end') {
-            
+
             $attendance = Attendance::where('date', $now->format('Y-m-d'))->where('user_id', $userId)->first();
-            
-            
             $attendance->end = $now->format('Y-m-d H:i:00');
             $attendance->attendance_status_id = 4;
             $attendance->save();
-            
+
         } elseif ($action == 'break_start') {
-            
+
             $attendance = Attendance::where('date', $now->format('Y-m-d'))->where('user_id', $userId)->first();
             $attendance->attendance_status_id = 3;
             $attendance->save();
             $attendanceBreak = new AttendanceBreak();
             $attendanceBreak->attendance_id = $attendance->id;
-            
-            
-            
             $attendanceBreak->break_start = $now->format('Y-m-d H:i:00');
             $attendanceBreak->break_end = null;
             $attendanceBreak->save();
-            
+
         } elseif($action == 'break_end') {
-            
+
             $attendance = Attendance::where('date', $now->format('Y-m-d'))->where('user_id', $userId)->first();
             $attendance->attendance_status_id = 2;
             $attendance->save();
-            
+
             $targetId = AttendanceBreak::where('attendance_id', $attendance->id)->max('id');
             $attendanceBreak = AttendanceBreak::find($targetId);
-            
-            
             $attendanceBreak->break_end = $now->format('Y-m-d H:i:00');
             $attendanceBreak->save();
         }
@@ -179,6 +172,14 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::find($id);
 
+        if ($attendance->date == Carbon::now()->format('Y-m-d')) {
+
+            $attendance = Attendance::with('user', 'attendance_breaks')->find($id);
+
+            return view('attendance-detail2', compact('attendance'));
+
+        }
+
         if (Auth::guard('admin')->check() || $attendance->request_status_id == 1) {
 
             $attendance = Attendance::with('user', 'attendance_breaks')->find($id);
@@ -194,8 +195,12 @@ class AttendanceController extends Controller
         }
     }
 
-    public function updateDetail($id, Request $request)
+    // public function updateDetail($id, Request $request)
+    public function updateDetail($id, AttendanceRequest2 $request)
     {
+
+        // dd($request);
+
         if (Auth::guard('admin')->check()) {
 
             $attendance = Attendance::find($id);

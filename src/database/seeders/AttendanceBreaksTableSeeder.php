@@ -28,8 +28,18 @@ class AttendanceBreaksTableSeeder extends Seeder
             ],
             [
                 'attendance_id' => 2,
-                'break_start' => Carbon::today()->subDay(1)->setTime(12, 5, 0),
-                'break_end' => Carbon::today()->subDay(1)->setTime(12, 58, 0),
+                'break_start' => Carbon::today()->subDay(1)->setTime(12, 0, 0),
+                'break_end' => Carbon::today()->subDay(1)->setTime(13, 0, 0),
+            ],
+            [
+                'attendance_id' => 2,
+                'break_start' => Carbon::today()->subDay(1)->setTime(14, 0, 0),
+                'break_end' => Carbon::today()->subDay(1)->setTime(15, 0, 0),
+            ],
+            [
+                'attendance_id' => 2,
+                'break_start' => Carbon::today()->subDay(1)->setTime(16, 0, 0),
+                'break_end' => Carbon::today()->subDay(1)->setTime(17, 0, 0),
             ],
         ];
         DB::table('attendance_breaks')->insert($contents);
