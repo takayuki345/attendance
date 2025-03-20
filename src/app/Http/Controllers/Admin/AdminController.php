@@ -11,6 +11,10 @@ class AdminController extends Controller
 {
     public function showLoginForm()
     {
+        if (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
+        }
+
         return view('auth.login');
     }
 

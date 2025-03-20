@@ -38,9 +38,9 @@
                         <td></td>
                         <td colspan="4">
                             @if ($errors->has('start'))
-                                <div class="error">{{ $message }}</div>
+                                <div class="error">{{ $errors->first('start') }}</div>
                             @elseif ($errors->has('end'))
-                                <div class="error">{{ $message }}</div>
+                                <div class="error">{{ $errors->first('end') }}</div>
                             @endif
                         </td>
                     </tr>
@@ -65,9 +65,9 @@
                             <td></td>
                             <td colspan="4">
                                 @if ($errors->has('break_start.' . $idx))
-                                    <div class="error">{{ $message }}</div>
+                                    <div class="error">{{ $errors->first('break_start.' . $idx) }}</div>
                                 @elseif ($errors->has('break_end.' . $idx))
-                                    <div class="error">{{ $message }}</div>
+                                    <div class="error">{{ $errors->first('break_end.' . $idx) }}</div>
                                 @endif
                             </td>
                         </tr>
@@ -88,9 +88,9 @@
                         <td></td>
                         <td colspan="4">
                             @if ($errors->has('break_start_add'))
-                                <div class="error">{{ $message }}</div>
-                            @elseif ('break_end_add')
-                                <div class="error">{{ $message }}</div>
+                                <div class="error">{{ $errors->first('break_start_add') }}</div>
+                            @elseif ($errors->has('break_end_add'))
+                                <div class="error">{{ $errors->first('break_end_add') }}</div>
                             @endif
                         </td>
                     </tr>

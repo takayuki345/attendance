@@ -12,9 +12,25 @@
         <h2 class="attendance-list__title">勤怠一覧</h2>
     @endif
     <div class="attendance-list__working-month">
-        <div class="working-month-last"><a href="/attendance/list?year={{ $targets['beforeYear'] }}&month={{ $targets['beforeMonth'] }}"><span>前月</span></a></div>
+        <div class="working-month-last">
+            @if (Auth::guard('admin')->check())
+                <a href="/admin/attendance/staff/{{ $userId }}?year={{ $targets['beforeYear'] }}&month={{ $targets['beforeMonth'] }}">
+            @elseif (Auth::guard('web')->check())
+                <a href="/attendance/list?year={{ $targets['beforeYear'] }}&month={{ $targets['beforeMonth'] }}">
+            @endif
+                <span>前月</span>
+            </a>
+        </div>
         <div class="working-month-current"><span>{{ $targets['year'] }}/{{ sprintf('%02d', $targets['month']) }}</span></div>
-        <div class="working-month-next"><a href="/attendance/list?year={{ $targets['afterYear'] }}&month={{ $targets['afterMonth'] }}"><span>翌月</span></a></div>
+        <div class="working-month-next">
+            @if (Auth::guard('admin')->check())
+                <a href="/admin/attendance/staff/{{ $userId }}?year={{ $targets['afterYear'] }}&month={{ $targets['afterMonth'] }}">
+            @elseif (Auth::guard('web')->check())
+                <a href="/attendance/list?year={{ $targets['afterYear'] }}&month={{ $targets['afterMonth'] }}">
+            @endif
+                <span>翌月</span>
+            </a>
+        </div>
     </div>
     <div class="attendance-list__container">
         <table class="attendance-list__table">

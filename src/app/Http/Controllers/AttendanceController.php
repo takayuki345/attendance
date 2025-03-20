@@ -56,37 +56,41 @@ class AttendanceController extends Controller
             $attendance->request_status_id = 1;
             $attendance->save();
 
-        } elseif ($action == 'end') {
+        } else {
 
             $attendance = Attendance::where('date', $now->format('Y-m-d'))->where('user_id', $userId)->first();
-            $attendance->end = $now->format('Y-m-d H:i:00');
-            $attendance->attendance_status_id = 4;
-            $attendance->save();
+            if (isset($attendance)) {
 
-        } elseif ($action == 'break_start') {
+                if ($action == 'end') {
 
-            $attendance = Attendance::where('date', $now->format('Y-m-d'))->where('user_id', $userId)->first();
-            $attendance->attendance_status_id = 3;
-            $attendance->save();
-            $attendanceBreak = new AttendanceBreak();
-            $attendanceBreak->attendance_id = $attendance->id;
-            $attendanceBreak->break_start = $now->format('Y-m-d H:i:00');
-            $attendanceBreak->break_end = null;
-            $attendanceBreak->save();
+                    $attendance->end = $now->format('Y-m-d H:i:00');
+                    $attendance->attendance_status_id = 4;
+                    $attendance->save();
 
-        } elseif($action == 'break_end') {
+                } elseif ($action == 'break_start') {
 
-            $attendance = Attendance::where('date', $now->format('Y-m-d'))->where('user_id', $userId)->first();
-            $attendance->attendance_status_id = 2;
-            $attendance->save();
+                    $attendance->attendance_status_id = 3;
+                    $attendance->save();
+                    $attendanceBreak = new AttendanceBreak();
+                    $attendanceBreak->attendance_id = $attendance->id;
+                    $attendanceBreak->break_start = $now->format('Y-m-d H:i:00');
+                    $attendanceBreak->break_end = null;
+                    $attendanceBreak->save();
 
-            $targetId = AttendanceBreak::where('attendance_id', $attendance->id)->max('id');
-            $attendanceBreak = AttendanceBreak::find($targetId);
-            $attendanceBreak->break_end = $now->format('Y-m-d H:i:00');
-            $attendanceBreak->save();
+                } elseif($action == 'break_end') {
+
+                    $attendance->attendance_status_id = 2;
+                    $attendance->save();
+                    $targetId = AttendanceBreak::where('attendance_id', $attendance->id)->max('id');
+                    $attendanceBreak = AttendanceBreak::find($targetId);
+                    $attendanceBreak->break_end = $now->format('Y-m-d H:i:00');
+                    $attendanceBreak->save();
+                }
+            }
         }
 
         return redirect('/attendance');
+
     }
 
     public function showMonthAttendance(Request $request, $id = null)
@@ -165,7 +169,7 @@ class AttendanceController extends Controller
             array_push($timeRecords, $timeRecord);
         }
 
-        return view('attendance-list', compact('timeRecords', 'targets', 'userName'));
+        return view('attendance-list', compact('timeRecords', 'targets', 'userId', 'userName'));
     }
 
     public function showDetail($id)
@@ -195,11 +199,8 @@ class AttendanceController extends Controller
         }
     }
 
-    // public function updateDetail($id, Request $request)
     public function updateDetail($id, AttendanceRequest2 $request)
     {
-
-        // dd($request);
 
         if (Auth::guard('admin')->check()) {
 

@@ -54,8 +54,8 @@ class AttendanceRequestController extends Controller
         $attendance = Attendance::find($attendanceRequest->attendance_id);
         $attendance->start = $attendanceRequest->start;
         $attendance->end = $attendanceRequest->end;
-        // $attendance->note = $attendanceRequest->note;
-        $attendance->note = $attendanceRequest->null;
+        $attendance->note = $attendanceRequest->note;
+        // $attendance->note = $attendanceRequest->null;
         $attendance->attendance_status_id = 4;
         $attendance->request_status_id = 1;
         $attendance->save();
@@ -70,7 +70,6 @@ class AttendanceRequestController extends Controller
             $attendanceBreak->save();
         }
 
-        // return redirect('/stamp_correction_request/approve/' . $id);
         return redirect('/stamp_correction_request/list?status=3');
     }
 }
