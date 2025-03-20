@@ -47,6 +47,9 @@ Route::middleware(['admin'])->group(function() {
     Route::get('/stamp_correction_request/approve/{id}', [AttendanceRequestController::class, 'showRequestDetail']);
 
     Route::post('/stamp_correction_request/approve/{id}', [AttendanceRequestController::class, 'approveRequestDetail']);
+
+    Route::post('/csv_download', [AttendanceController::class, 'downloadCsv']);
+
 });
 
 Route::middleware(['anyauth'])->group(function() {

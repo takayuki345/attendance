@@ -13,6 +13,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AttendanceController extends Controller
 {
@@ -124,50 +125,7 @@ class AttendanceController extends Controller
             'afterMonth' => Carbon::create($year, $month + 1)->month,
         ];
 
-        $period = CarbonPeriod::create($startDate, $endDate);
-
-        $timeRecords = array();
-
-        foreach ($period as $date) {
-            $attendance = Attendance::where('user_id', $userId)->where('date', $date->format('Y-m-d'))->first();
-            $start = "";
-            $end = "";
-            $break = "";
-            $total = "";
-            $id = "";
-            if($attendance) {
-                if ($attendance->start != null) {
-                    $start = Carbon::parse($attendance->start)->isoFormat('HH:mm');
-                }
-                if ($attendance->end != null) {
-                    $end = Carbon::parse($attendance->end)->isoFormat('HH:mm');
-                }
-                $breakSeconds = 0;
-                foreach ($attendance->attendance_breaks as $attendanceBreak) {
-                    if (isset($attendanceBreak->break_end)) {
-                        $breakSeconds += strtotime($attendanceBreak->break_end) - strtotime($attendanceBreak->break_start);
-                    }
-                }
-                if ($breakSeconds != 0) {
-                    $break = $this->formatTime($breakSeconds);
-                }
-
-                if(isset($attendance->end)) {
-                    $totalSeconds = strtotime($attendance->end) - strtotime($attendance->start) - $breakSeconds;
-                    $total = $this->formatTime($totalSeconds);
-                }
-                $id = $attendance->id;
-            }
-            $timeRecord = [
-                'date' => $date->isoFormat('MM/DD(ddd)'),
-                'start' => $start,
-                'end' => $end,
-                'break' => $break,
-                'total' => $total,
-                'id' => $id,
-            ];
-            array_push($timeRecords, $timeRecord);
-        }
+        $timeRecords = $this->getTimeRecordsArray($year, $month, $userId);
 
         return view('attendance-list', compact('timeRecords', 'targets', 'userId', 'userName'));
     }
@@ -352,5 +310,88 @@ class AttendanceController extends Controller
         $minutes = floor(($seconds % 3600) / 60);
 
         return sprintf('%02d', $hours) . ':' . sprintf('%02d', $minutes);
+    }
+
+    public function downloadCsv(Request $request)
+    {
+        $year = $request->year;
+        $month = $request->month;
+        $userId = $request->user_id;
+
+        $csvHeader = ['日付', '出勤', '退勤', '休憩', '合計'];
+        $csvData = $this->getTimeRecordsArray($year, $month, $userId);
+
+        mb_convert_variables('SJIS-win', 'UTF-8', $csvHeader);
+        mb_convert_variables('SJIS-win', 'UTF-8', $csvData);
+
+        $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $csvHeader);
+
+            foreach ($csvData as $csv) {
+                unset($csv['id']);
+                fputcsv($handle, $csv);
+            }
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="month_attendance_' . $year . '_' . sprintf('%02d',$month) . '_' . $request->user_id . '.csv"',
+        ]);
+
+        return $response;
+    }
+
+    public function getTimeRecordsArray($year, $month, $userId)
+    {
+
+        $startDate = Carbon::create($year, $month)->startOfMonth();
+        $endDate = Carbon::create($year, $month)->endOfMonth();
+
+        $period = CarbonPeriod::create($startDate, $endDate);
+
+        $timeRecords = array();
+
+        foreach ($period as $date) {
+            $attendance = Attendance::where('user_id', $userId)->where('date', $date->format('Y-m-d'))->first();
+            $start = "";
+            $end = "";
+            $break = "";
+            $total = "";
+            $id = "";
+            if($attendance) {
+                if ($attendance->start != null) {
+                    $start = Carbon::parse($attendance->start)->isoFormat('HH:mm');
+                }
+                if ($attendance->end != null) {
+                    $end = Carbon::parse($attendance->end)->isoFormat('HH:mm');
+                }
+                $breakSeconds = 0;
+                foreach ($attendance->attendance_breaks as $attendanceBreak) {
+                    if (isset($attendanceBreak->break_end)) {
+                        $breakSeconds += strtotime($attendanceBreak->break_end) - strtotime($attendanceBreak->break_start);
+                    }
+                }
+                if ($breakSeconds != 0) {
+                    $break = $this->formatTime($breakSeconds);
+                }
+
+                if(isset($attendance->end)) {
+                    $totalSeconds = strtotime($attendance->end) - strtotime($attendance->start) - $breakSeconds;
+                    $total = $this->formatTime($totalSeconds);
+                }
+                $id = $attendance->id;
+            }
+            $timeRecord = [
+                'date' => $date->isoFormat('MM/DD(ddd)'),
+                'start' => $start,
+                'end' => $end,
+                'break' => $break,
+                'total' => $total,
+                'id' => $id,
+            ];
+            array_push($timeRecords, $timeRecord);
+        }
+
+        return $timeRecords;
     }
 }

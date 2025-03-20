@@ -56,7 +56,13 @@
     </div>
     <div class="attendance-list__csv">
         @if (Auth::guard('admin')->check())
-        <button>CSV出力</button>
+        <form action="/csv_download" method="post">
+            @csrf
+            <input type="hidden" name='year' value="{{ $targets['year'] }}">
+            <input type="hidden" name='month' value="{{ $targets['month'] }}">
+            <input type="hidden" name='user_id' value="{{ $userId }}">
+            <button type="submit">CSV出力</button>
+        </form>
         @endif
     </div>
 </div>
