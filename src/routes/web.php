@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceRequestController;
 use App\Http\Controllers\Admin\AdminController as AdminLoginController;
 use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -22,7 +24,7 @@ Route::get('/', function() {
     return redirect('/attendance');
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth', 'verified')->group(function() {
 
     Route::get('/attendance', [AttendanceController::class, 'showStamp']);
 
@@ -52,7 +54,7 @@ Route::middleware(['admin'])->group(function() {
 
 });
 
-Route::middleware(['anyauth'])->group(function() {
+Route::middleware(['any.auth'])->group(function() {
     Route::get('/attendance/{id}', [AttendanceController::class, 'showDetail']);
     Route::post('/attendance/{id}', [AttendanceController::class, 'updateDetail']);
     Route::get('/stamp_correction_request/list', [AttendanceRequestController::class, 'index']);
@@ -63,3 +65,17 @@ Route::middleware('auth')->group(function() {
     Route::get('/stamp_correction_request/{id}', [AttendanceRequestController::class, 'showRequestDetail']);
 
 });
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back();
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

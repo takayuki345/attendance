@@ -18,12 +18,15 @@
                     <li><a href="/admin/staff/list">スタッフ一覧</a></li>
                     <li><a href="/stamp_correction_request/list">申請一覧</a></li>
                 @endif
-                @if (Auth::guard('web')->check())
-                    <li><a href="/attendance">勤怠</a></li>
-                    <li><a href="/attendance/list">勤怠一覧</a></li>
-                    <li><a href="/stamp_correction_request/list">申請</a></li>
-                    <!-- <li><a href="">今月の出勤一覧</a></li>
-                    <li><a href="">申請一覧</a></li> -->
+                @if (Auth::guard('web')->check() && Auth::guard('web')->user()->hasVerifiedEmail())
+                    @if (isset($attendanceStatus) && $attendanceStatus == '退勤済')
+                        <li><a href="/attendance/list">今月の出勤一覧</a></li>
+                        <li><a href="/stamp_correction_request/list">申請一覧</a></li>
+                    @else
+                        <li><a href="/attendance">勤怠</a></li>
+                        <li><a href="/attendance/list">勤怠一覧</a></li>
+                        <li><a href="/stamp_correction_request/list">申請</a></li>
+                    @endif
                 @endif
                 <li>
                     @if (Auth::guard('admin')->check())
@@ -31,7 +34,7 @@
                             @csrf
                             <button type="submit">ログアウト</button>
                         </form>
-                    @elseif (Auth::guard('web')->check())
+                    @elseif (Auth::guard('web')->check() && Auth::guard('web')->user()->hasVerifiedEmail())
                         <form action="/logout" method="post">
                             @csrf
                             <button type="submit">ログアウト</button>
