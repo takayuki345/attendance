@@ -25,13 +25,6 @@
                     <td></td>
                 </tr>
             @endforeach
-            <!-- <tr>
-                <td></td>
-                <td>西　伶奈</td>
-                <td>reina.n@coachtech.com</td>
-                <td><a href="">詳細</a></td>
-                <td></td>
-            </tr> -->
         </table>
     </div>
 </div>

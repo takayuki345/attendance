@@ -270,6 +270,10 @@ class AttendanceController extends Controller
 
             if ($breakSeconds != 0) {
                 $break = $this->formatTime($breakSeconds);
+            } elseif (isset($attendance->attendance_breaks)) {
+                if ($attendance->attendance_breaks->count() > 0) {
+                    $break = $this->formatTime(0);
+                }
             }
 
             if (isset($attendance->end)) {
@@ -373,6 +377,10 @@ class AttendanceController extends Controller
                 }
                 if ($breakSeconds != 0) {
                     $break = $this->formatTime($breakSeconds);
+                } elseif (isset($attendance->attendance_breaks)) {
+                    if ($attendance->attendance_breaks->count() > 0) {
+                        $break = $this->formatTime(0);
+                    }
                 }
 
                 if(isset($attendance->end)) {

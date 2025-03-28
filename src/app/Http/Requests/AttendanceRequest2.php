@@ -62,7 +62,7 @@ class AttendanceRequest2 extends FormRequest
             'break_end_add.required_with' => '終了時間を入力して下さい',
             'break_end_add.before' => '休憩時間が勤務時間外です',
 
-            'note.required' => '備考を入力して下さい',
+            'note.required' => '備考を記入してください',
         ];
     }
 }

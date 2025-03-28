@@ -16,6 +16,7 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         $content = [
+            'id' => 1,
             'name' => 'admin1',
             'email' => 'admin1@admin',
             'password' => Hash::make('admin1admin1'),

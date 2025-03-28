@@ -34,15 +34,6 @@
                     <td>@if($timeRecord['id'] != '') <a href="/attendance/{{ $timeRecord['id'] }}">詳細</a> @endif</td>
                 </tr>
             @endforeach
-            <!-- <tr>
-                <td>西　伶奈</td>
-                <td></td>
-                <td>09:00</td>
-                <td>18:00</td>
-                <td>1:00</td>
-                <td>8:00</td>
-                <td><a href="">詳細</a></td>
-            </tr> -->
         </table>
     </div>
 </div>
