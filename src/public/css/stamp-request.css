@@ -1,5 +1,5 @@
 .stamp-request__wrapper {
-    margin: 80px auto 0;
+    margin: 80px auto 50px;
     max-width: 1000px;
 }
 
@@ -89,4 +89,68 @@
 .stamp-request__table a {
     text-decoration: none;
     color: black;
+}
+
+@media(max-width:1100px) {
+    .stamp-request__wrapper {
+        max-width: 90vw;
+    }
+    .stamp-request__title {
+        margin-bottom: calc(50px * 0.7);
+    }
+    .stamp-request__tab {
+        margin-bottom: calc(50px * 0.7);
+    }
+    .stamp-request__table tr {
+        display: grid;
+        grid-template-columns: 30% 29% 29% 12%;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: "state date request-time detail" "name note note note";
+        grid-gap: 0;
+    }
+    .stamp-request__table th:nth-of-type(1),
+    .stamp-request__table td:nth-of-type(1) {
+        padding-left: 4.5vw;
+        grid-area: state;
+        width: 100%;
+        border-bottom: none !important;
+        line-height: 50px;
+    }
+
+    .stamp-request__table th:nth-of-type(2),
+    .stamp-request__table td:nth-of-type(2) {
+        padding-left: 4.5vw;
+        grid-area: name;
+        width: 100%;
+    }
+
+    .stamp-request__table th:nth-of-type(3),
+    .stamp-request__table td:nth-of-type(3) {
+        grid-area: date;
+        width:100%;
+        border-bottom: none !important;
+        line-height: 50px;
+    }
+
+    .stamp-request__table th:nth-of-type(4),
+    .stamp-request__table td:nth-of-type(4) {
+        grid-area: note;
+        width:100%;
+    }
+
+    .stamp-request__table th:nth-of-type(5),
+    .stamp-request__table td:nth-of-type(5) {
+        grid-area: request-time;
+        width:100%;
+        border-bottom: none !important;
+        line-height: 50px;
+    }
+
+    .stamp-request__table th:nth-of-type(6),
+    .stamp-request__table td:nth-of-type(6) {
+        grid-area: detail;
+        width:100%;
+        border-bottom: none !important;
+        line-height: 50px;
+    }
 }

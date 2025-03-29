@@ -1,6 +1,5 @@
 .attendance__wrapper {
     margin: 150px auto 0;
-    /* max-width: 700px; */
     text-align: center;
 }
 
@@ -38,15 +37,12 @@
 
 .form-group .button-work,
 .form-group .button-break {
-    /* text-align: right; */
     display: inline-block;
-    /* padding: 0; */
     font-size: 28px;
     font-weight: bold;
     width: 180px;
     padding: 10px;
     border: none;
-    /* width: 100%; */
     border-radius: 20px;
     cursor: pointer;
     letter-spacing: 0.2em;
@@ -67,4 +63,10 @@
     font-size: 22px;
     font-weight: bold;
     line-height: 62px;
+}
+
+@media(max-width:1100px) {
+    .attendance__wrapper {
+        margin: 100px auto 0;
+    }
 }

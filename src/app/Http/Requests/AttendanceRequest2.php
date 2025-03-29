@@ -30,7 +30,7 @@ class AttendanceRequest2 extends FormRequest
             'break_end.*' => ['required', 'date_format:H:i', 'before:end'],
             'break_start_add' => ['nullable', 'date_format:H:i', 'required_with:break_end_add', 'before:break_end_add', 'after:start'],
             'break_end_add' => ['nullable', 'date_format:H:i', 'required_with:break_start_add', 'before:end'],
-            'note' => ['required'],
+            'note' => ['required', 'max:56'],
         ];
     }
 
@@ -63,6 +63,7 @@ class AttendanceRequest2 extends FormRequest
             'break_end_add.before' => '休憩時間が勤務時間外です',
 
             'note.required' => '備考を記入してください',
+            'note.max' => '備考の文字数を減らしてください',
         ];
     }
 }

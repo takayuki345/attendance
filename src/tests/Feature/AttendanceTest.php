@@ -479,8 +479,8 @@ class AttendanceTest extends TestCase
 
         $response = $this->get($link);
 
-        $date = Carbon::now()->subMonth()->startOfMonth()->isoFormat('MM/DD(ddd)');
-        $nextDate = Carbon::now()->subMonth()->startOfMonth()->addDay()->isoFormat('MM/DD(ddd)');
+        $date = Carbon::now()->startOfMonth()->subMonth()->isoFormat('MM/DD(ddd)');
+        $nextDate = Carbon::now()->startOfMonth()->subMonth()->addDay()->isoFormat('MM/DD(ddd)');
 
         $response->assertSeeInOrder([$date, '07:00', '21:00', '03:00', '11:00', $nextDate]);
     }
@@ -497,8 +497,8 @@ class AttendanceTest extends TestCase
 
         $response = $this->get($link);
 
-        $date = Carbon::now()->addMonth()->startOfMonth()->isoFormat('MM/DD(ddd)');
-        $nextDate = Carbon::now()->addMonth()->startOfMonth()->addDay()->isoFormat('MM/DD(ddd)');
+        $date = Carbon::now()->startOfMonth()->addMonth()->isoFormat('MM/DD(ddd)');
+        $nextDate = Carbon::now()->startOfMonth()->addMonth()->addDay()->isoFormat('MM/DD(ddd)');
 
         $response->assertSeeInOrder([$date, '09:00', '19:00', '01:00', '09:00', $nextDate]);
     }
@@ -756,9 +756,9 @@ class AttendanceTest extends TestCase
 
             $response = $this->get($link);
 
-            $date = Carbon::now()-subMonth()->startOfMonth()->isoFormat('YYYY/MM/DD');
-            $year = Carbon::now()-subMonth()->isoFormat('YYYY年');
-            $day = Carbon::now()-subMonth()->startOfMonth()->isoFormat('M月D日');
+            $date = Carbon::now()->startOfMonth()->subMonth()->isoFormat('YYYY/MM/DD');
+            $year = Carbon::now()->subMonth()->isoFormat('YYYY年');
+            $day = Carbon::now()->startOfMonth()->subMonth()->isoFormat('M月D日');
 
         } else {
 
@@ -819,7 +819,7 @@ class AttendanceTest extends TestCase
 
         $response = $this->actingAs($user)->get('stamp_correction_request/list');
 
-        $day = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('YYYY/MM/DD');
+        $day = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('YYYY/MM/DD');
 
         $response->assertSeeInOrder(['承認待ち', $user->name, $day]);
     }
@@ -830,7 +830,7 @@ class AttendanceTest extends TestCase
 
         $response = $this->actingAs($user)->get('stamp_correction_request/list?status=3');
 
-        $day = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('YYYY/MM/DD');
+        $day = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('YYYY/MM/DD');
 
         $response->assertSeeInOrder(['承認済み', $user->name, $day]);
     }
@@ -844,7 +844,7 @@ class AttendanceTest extends TestCase
         $crawler = new Crawler($response->getContent());
 
         $year = Carbon::now()->subMonth(2)->isoFormat('YYYY年');
-        $day = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('M月D日');
+        $day = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('M月D日');
 
         $link = $crawler->filter('a:contains("詳細")')->attr('href');
 
@@ -1267,8 +1267,8 @@ class AttendanceTest extends TestCase
 
         $response = $this->get($link);
 
-        $day = Carbon::now()->subMonth()->startOfMonth()->isoFormat('MM/DD(ddd)');
-        $nextDay = Carbon::now()->subMonth()->startOfMonth()->addDay()->isoFormat('MM/DD(ddd)');
+        $day = Carbon::now()->startOfMonth()->subMonth()->isoFormat('MM/DD(ddd)');
+        $nextDay = Carbon::now()->startOfMonth()->subMonth()->addDay()->isoFormat('MM/DD(ddd)');
 
         $checkList = [$day, '07:00', '21:00', '03:00', '11:00', $nextDay];
 
@@ -1295,8 +1295,8 @@ class AttendanceTest extends TestCase
 
         $response = $this->get($link);
 
-        $day = Carbon::now()->addMonth()->startOfMonth()->isoFormat('MM/DD(ddd)');
-        $nextDay = Carbon::now()->addMonth()->startOfMonth()->addDay()->isoFormat('MM/DD(ddd)');
+        $day = Carbon::now()->startOfMonth()->addMonth()->isoFormat('MM/DD(ddd)');
+        $nextDay = Carbon::now()->startOfMonth()->addMonth()->addDay()->isoFormat('MM/DD(ddd)');
 
         $checkList = [$day, '09:00', '19:00', '01:00', '09:00', $nextDay];
 
@@ -1342,7 +1342,7 @@ class AttendanceTest extends TestCase
 
         $response = $this->actingAs($admin, 'admin')->get('stamp_correction_request/list');
 
-        $date = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('YYYY/MM/DD');
+        $date = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('YYYY/MM/DD');
 
         $checkList = [
             '承認待ち', 'test1', $date,
@@ -1364,7 +1364,7 @@ class AttendanceTest extends TestCase
 
         $response = $this->get($link);
 
-        $date = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('YYYY/MM/DD');
+        $date = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('YYYY/MM/DD');
 
         $checkList = [
             '承認済み', 'test4', $date,
@@ -1388,8 +1388,8 @@ class AttendanceTest extends TestCase
 
         $response = $this->get($link);
 
-        $year = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('YYYY年');
-        $day = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('M月D日');
+        $year = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('YYYY年');
+        $day = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('M月D日');
 
         $checkList = [
             '名前', $user->name,
@@ -1418,10 +1418,10 @@ class AttendanceTest extends TestCase
         $this->post($link);
 
         $year = Carbon::now()->subMonth(2)->year;
-        $year2 = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('YYYY年');
+        $year2 = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('YYYY年');
         $month = Carbon::now()->subMonth(2)->month;
-        $day = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('MM/DD(ddd)');
-        $day2 = Carbon::now()->subMonth(2)->startOfMonth()->isoFormat('M月D日');
+        $day = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('MM/DD(ddd)');
+        $day2 = Carbon::now()->startOfMonth()->subMonth(2)->isoFormat('M月D日');
 
         $link = '/admin/attendance/staff/' . $user->id . '?year=' . $year . '&month=' .$month;
 

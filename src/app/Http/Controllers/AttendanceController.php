@@ -134,6 +134,12 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::find($id);
 
+        if (Auth::guard('web')->check()  && Auth::id() != $attendance->user_id) {
+
+            return redirect('/');
+        }
+
+
         if ($attendance->date == Carbon::now()->format('Y-m-d')) {
 
             $attendance = Attendance::with('user', 'attendance_breaks')->find($id);

@@ -28,19 +28,21 @@
                         <li><a href="/stamp_correction_request/list">申請</a></li>
                     @endif
                 @endif
-                <li>
-                    @if (Auth::guard('admin')->check())
+                @if (Auth::guard('admin')->check())
+                    <li>
                         <form action="/admin/logout" method="post">
                             @csrf
                             <button type="submit">ログアウト</button>
                         </form>
-                    @elseif (Auth::guard('web')->check() && Auth::guard('web')->user()->hasVerifiedEmail())
+                    </li>
+                @elseif (Auth::guard('web')->check() && Auth::guard('web')->user()->hasVerifiedEmail())
+                    <li>
                         <form action="/logout" method="post">
                             @csrf
                             <button type="submit">ログアウト</button>
                         </form>
-                    @endif
-                </li>
+                    </li>
+                @endif
             </ul>
         </nav>
     </header>
